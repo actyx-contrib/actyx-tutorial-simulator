@@ -15,7 +15,6 @@
  */
 import aedes from 'aedes'
 import { PublishPacket } from 'aedes/types/packet'
-
 import { createServer } from 'net'
 import * as uuid from 'uuid'
 
@@ -29,7 +28,9 @@ const main = async ({ port }: Options) => {
   const serverPort = parseInt(port || '1883')
 
   server.listen(serverPort, function () {
-    console.log('ax101-mqtt-barcode-scanner MQTT started and listening on port ', port)
+    console.log(welcomeMessage)
+    console.log('MQTT-server available on port ', port)
+    console.log(usage)
   })
 
   process.stdin.on('data', (data) => {
@@ -39,7 +40,7 @@ const main = async ({ port }: Options) => {
       case 'r': {
         const randomId = uuid.v4()
         const data = mkScannedPackage(randomId)
-        aedesServer.publish(mkPublishPackage('scanner', data), (err) => {
+        aedesServer.publish(mkPublishPackage('scan', data), (err) => {
           if (err) {
             console.log(err)
           } else {
@@ -55,7 +56,7 @@ const main = async ({ port }: Options) => {
           break
         }
         const data = mkScannedPackage(id)
-        aedesServer.publish(mkPublishPackage('scanner', data), (err) => {
+        aedesServer.publish(mkPublishPackage('scan', data), (err) => {
           if (err) {
             console.log(err)
           } else {
@@ -68,7 +69,7 @@ const main = async ({ port }: Options) => {
       case 'l': {
         const data = mkLossPackage()
 
-        aedesServer.publish(mkPublishPackage('scanner', data), (err) => {
+        aedesServer.publish(mkPublishPackage('scan', data), (err) => {
           if (err) {
             console.log(err)
           } else {
@@ -85,10 +86,18 @@ const main = async ({ port }: Options) => {
   })
 }
 
-const usage = `available commands are:
- r      => Automatic generate random id and send 'scanned' package
- l      => Release scanner and send 'loss' package
- s <ID> => Send given id as 'scanned' package
+const welcomeMessage = `Use your keyboard to simulate a Barcode or RFID scanner.
+The scanner will send MQTT packages on the 'scan' topic.
+Two packages are generated:
+1. scanned: '{ "event": "scanned", "value": "<id>" }'
+2. lost:    '{ "event": "lost" }'
+
+`
+
+const usage = `Available commands are:
+ r      - Send a random uuid as 'scanned' package
+ l      - Send 'lost' package
+ s <ID> - Send given id as 'scanned' package
 `
 
 const mkPublishPackage = (topic: string, payload: any): PublishPacket => ({
@@ -105,7 +114,7 @@ const mkScannedPackage = (value: string) => ({
   value,
 })
 const mkLossPackage = () => ({
-  event: 'loss',
+  event: 'lost',
 })
 
 export default main
