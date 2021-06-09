@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-console.log('template module loaded')
-const main = async () => {
+type Options = Partial<{
+  example: string
+}>
+// main entry-point for the opcua mock
+const main = async ({ example }: Options) => {
   console.log('template module started')
 }
 export default main

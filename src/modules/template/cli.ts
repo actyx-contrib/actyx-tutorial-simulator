@@ -21,7 +21,8 @@ export const cli = (program: Command): Command => {
   program
     .command('Template')
     .description('example to present how to add a new module')
-    .action(() => require('./index.js').default(process.argv))
+    .option('-p --port <port>', 'MQTT-server port')
+    .action((param) => require('./index.js').default(param))
 
   // add your new module to src/index.spec.ts
   return program
