@@ -18,7 +18,7 @@ import { Command } from 'commander'
 export const cli = (program: Command): Command => {
   program
     .command('ax101-3-machine')
-    .description('Starts a MQTT machine simulation that consumes material')
+    .description('Simulates a machine with a MQTT interface that consumes material')
     .option('-p --port <port>', 'MQTT-server port')
     .action((param) => require('./index.js').default(param))
 

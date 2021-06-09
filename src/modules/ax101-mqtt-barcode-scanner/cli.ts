@@ -18,7 +18,7 @@ import { Command } from 'commander'
 export const cli = (program: Command): Command => {
   program
     .command('ax101-3-scanner')
-    .description('Starts a MQTT barcode scanner simulation')
+    .description('Barcode or RFID reader simulation with an MQTT interface')
     .option('-p --port <port>', 'MQTT-server port')
     .action((param) => require('./index.js').default(param))
 
