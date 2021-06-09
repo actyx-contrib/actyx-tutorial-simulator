@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-var-requires */
+'use strict'
+
+try {
+  process.title =
+    'Actyx Tutorial Simulation ' +
+    Array.from(process.argv)
+      .slice(1)
+      .join(' ')
+} catch (_) {
+  // If an error happened above, use the most basic title.
+  process.title = 'Actyx Tutorial Simulation'
+}
+
+if (require.main === module) {
+  require('../lib/index').cli(process.argv)
+}
