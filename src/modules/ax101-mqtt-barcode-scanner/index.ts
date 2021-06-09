@@ -80,7 +80,7 @@ const main = async ({ port }: Options) => {
       }
 
       default:
-        console.log('command not found \n' + usage)
+        console.log('Command not found\n' + usage)
         break
     }
   })
@@ -91,7 +91,6 @@ The scanner will send MQTT packages on the 'scan' topic.
 Two packages are generated:
 1. scanned: '{ "event": "scanned", "value": "<id>" }'
 2. lost:    '{ "event": "lost" }'
-
 `
 
 const usage = `Available commands are:

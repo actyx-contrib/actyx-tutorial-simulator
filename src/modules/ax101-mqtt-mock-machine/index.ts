@@ -13,10 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import aedes from 'aedes'
+import { createServer } from 'net'
+import { handleKeyboardCommands, handleMqttCommands } from './hander'
+import { usage, welcomeMessage } from './messages'
+import { mkSimulation } from './simulation'
+
 type Options = Partial<{
   port: string
 }>
 const main = async ({ port }: Options) => {
-  console.log('ax101-3-machine', port)
+  // create MQTT server
+  const aedesServer = aedes()
+  const server = createServer(aedesServer.handle)
+  const serverPort = parseInt(port || '1883')
+  server.listen(serverPort, function () {
+    console.log(welcomeMessage)
+    console.log('MQTT-server available on port ', port)
+    console.log(usage)
+  })
+
+  // create simulation
+  const simulation = mkSimulation(aedesServer)
+
+  // listen to mqtt commands
+  handleMqttCommands(aedesServer, simulation)
+
+  // listen to keyboard command
+  handleKeyboardCommands(simulation)
 }
+
 export default main

@@ -1,6 +1,6 @@
 {
   "name": "actyx-tutorial-simulator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Simulation tool for a couple of entry points",
   "main": "src/main.ts",
   "bin": {
@@ -21,7 +21,7 @@
     "license:check": "license-check-and-add check -f add-license-config.json",
     "license:check-dep": "license-checker --production --onlyAllow 'MIT; MIT OR X11; BSD; ISC; Apache-2.0;'"
   },
-  "author": "Alex Halemba (Actyx AG)",
+  "author": "Alexander89 - Actyx AG",
   "license": "MIT",
   "dependencies": {
     "aedes": "^0.46.0",
