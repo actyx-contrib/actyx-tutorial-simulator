@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-console.log('load ax101-3-machine')
-const main = async () => {
+type Options = Partial<{
+  port: string
+}>
+const main = async ({ port }: Options) => {
   console.log('ax101-3-machine')
 }
 export default main

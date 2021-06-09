@@ -16,11 +16,14 @@
 import { OPCUAServer } from 'node-opcua'
 import { simulateMachine } from './simulation'
 
+type Options = Partial<{
+  port: string
+}>
 // main entry-point for the opcua mock
-const main = async () => {
-  const port = parseInt(process.env.OPCUA_MOCK_PORT || '4434')
+const main = async ({ port }: Options) => {
+  const serverPort = parseInt(port || process.env.OPCUA_MOCK_PORT || '4434')
   const server = new OPCUAServer({
-    port: port,
+    port: serverPort,
     resourcePath: '/UA/actyx/',
     buildInfo: {
       productName: 'Actyx-OPC_UA-MockPlc',

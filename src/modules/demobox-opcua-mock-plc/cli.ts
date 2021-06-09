@@ -19,7 +19,8 @@ export const cli = (program: Command): Command => {
   program
     .command('opcua-mock-plc')
     .description('Starts an OPC UA mock PLC. Compatible to the demobox')
-    .action(() => require('./index.js').default(process.argv))
+    .option('-p --port <port>', 'OPC-UA-server port')
+    .action((param) => require('./index.js').default(param))
 
   return program
 }

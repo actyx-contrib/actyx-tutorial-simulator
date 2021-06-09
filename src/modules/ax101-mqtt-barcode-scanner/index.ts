@@ -13,6 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+type Options = Partial<{
+  port: string
+}>
+const main = async ({ port }: Options) => {
 console.log('load ax101-3-scanner')
 const main = async () => {
   console.log('ax101-3-scanner started')

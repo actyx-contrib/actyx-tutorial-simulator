@@ -19,7 +19,8 @@ export const cli = (program: Command): Command => {
   program
     .command('ax101-3-scanner')
     .description('Starts a MQTT barcode scanner simulation')
-    .action(() => require('./index.js').default(process.argv))
+    .option('-p --port <port>', 'MQTT-server port')
+    .action((param) => require('./index.js').default(param))
 
   return program
 }
