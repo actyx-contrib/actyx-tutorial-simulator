@@ -6,9 +6,19 @@ TODO
 
 ### opcua-mock-plc
 
-OPC UA mock plc simulating a machine behavior
+The opcua-mock-plc starts an opcua-server and simulates a very trivial machine with a state, a speed value, and a temperature.
 
-Compatible to the Actyx-Demo-Box
+```
+default address: opc.tcp://localhost:4434/UA/actyx/
+security:
+  user: actyx
+  password: actyx
+Component State:  /mockPLC/State  |  ns=1;s=state  |  Int16
+Component Speed:  /mockPLC/Speed  |  ns=1;s=speed  |  Float
+Component Temp:   /mockPLC/Temp   |  ns=1;s=temp   |  Float
+```
+
+Compatible to the Actyx-Demo-Box [https://github.com/actyx-contrib/machine-demo-box]
 
 ```
 start:

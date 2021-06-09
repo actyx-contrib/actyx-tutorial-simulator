@@ -6,6 +6,10 @@
   "bin": {
     "actyx-tutorial-simu": "bin/simu"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actyx-contrib/actyx-tutorial-simulator"
+  },
   "scripts": {
     "start": "ts-node src/index.ts",
     "prepack": "npm run build && npm run test:noCoverage && npm run license:add",
