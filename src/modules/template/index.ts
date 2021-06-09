@@ -18,6 +18,6 @@ type Options = Partial<{
 }>
 // main entry-point for the opcua mock
 const main = async ({ example }: Options) => {
-  console.log('template module started')
+  console.log('template module started', example)
 }
 export default main

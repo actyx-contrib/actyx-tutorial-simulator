@@ -17,6 +17,6 @@ type Options = Partial<{
   port: string
 }>
 const main = async ({ port }: Options) => {
-  console.log('ax101-3-machine')
+  console.log('ax101-3-machine', port)
 }
 export default main

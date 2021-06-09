@@ -13,12 +13,99 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import aedes from 'aedes'
+import { PublishPacket } from 'aedes/types/packet'
+
+import { createServer } from 'net'
+import * as uuid from 'uuid'
+
 type Options = Partial<{
   port: string
 }>
 const main = async ({ port }: Options) => {
-console.log('load ax101-3-scanner')
-const main = async () => {
-  console.log('ax101-3-scanner started')
+  const aedesServer = aedes()
+  const server = createServer(aedesServer.handle)
+
+  const serverPort = parseInt(port || '1883')
+
+  server.listen(serverPort, function () {
+    console.log('ax101-mqtt-barcode-scanner MQTT started and listening on port ', port)
+  })
+
+  process.stdin.on('data', (data) => {
+    const input = data.toString().trim()
+
+    switch (input.substr(0, 1)) {
+      case 'r': {
+        const randomId = uuid.v4()
+        const data = mkScannedPackage(randomId)
+        aedesServer.publish(mkPublishPackage('scanner', data), (err) => {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(`${JSON.stringify(data)} send successfully`)
+          }
+        })
+        break
+      }
+      case 's': {
+        const id = input.substr(2)
+        if (id.length === 0) {
+          console.log("command 's' requires an id\n" + usage)
+          break
+        }
+        const data = mkScannedPackage(id)
+        aedesServer.publish(mkPublishPackage('scanner', data), (err) => {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(`${JSON.stringify(data)} send successfully`)
+          }
+        })
+
+        break
+      }
+      case 'l': {
+        const data = mkLossPackage()
+
+        aedesServer.publish(mkPublishPackage('scanner', data), (err) => {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(`${JSON.stringify(data)} send successfully`)
+          }
+        })
+        break
+      }
+
+      default:
+        console.log('command not found \n' + usage)
+        break
+    }
+  })
 }
+
+const usage = `available commands are:
+ r      => Automatic generate random id and send 'scanned' package
+ l      => Release scanner and send 'loss' package
+ s <ID> => Send given id as 'scanned' package
+`
+
+const mkPublishPackage = (topic: string, payload: any): PublishPacket => ({
+  topic,
+  payload: JSON.stringify(payload),
+  cmd: 'publish',
+  retain: false,
+  dup: false,
+  qos: 0,
+})
+
+const mkScannedPackage = (value: string) => ({
+  event: 'scanned',
+  value,
+})
+const mkLossPackage = () => ({
+  event: 'loss',
+})
+
 export default main
