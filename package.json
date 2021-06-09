@@ -1,0 +1,46 @@
+{
+  "name": "actyx-tutorial-simulator",
+  "version": "0.0.1",
+  "description": "Simulation tool for a couple of entry points",
+  "main": "src/main.ts",
+  "bin": {
+    "actyx-tutorial-simu": "bin/simu"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "prepack": "npm run build && npm run test:noCoverage && npm run license:add",
+    "build:watch": "tsc --watch --pretty -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
+    "clean": "shx rm -rf lib",
+    "lint": "tsc --noEmit && eslint -c .eslintrc.js . && prettier './src/**/*.ts' --check",
+    "test": "npm run build && TZ=UTC jest  --collectCoverageFrom=\"['./src/**/*.{ts,tsx}', '!**/*.d.ts']\" --coverageDirectory=\"<rootDir>/coverage\" ./src",
+    "test:noCoverage": "TZ=UTC jest --coverage=false ./src",
+    "test:watch": "npm run build:watch && TZ=UTC jest --coverage=false --watch ./src",
+    "lint:fix": "tsc --noEmit && eslint -c .eslintrc.js . --fix && prettier './src/**/*.ts' --write",
+    "license:add": "license-check-and-add add -f add-license-config.json",
+    "license:check": "license-check-and-add check -f add-license-config.json",
+    "license:check-dep": "license-checker --production --onlyAllow 'MIT; MIT OR X11; BSD; ISC; Apache-2.0;'"
+  },
+  "author": "Alex Halemba (Actyx AG)",
+  "license": "MIT",
+  "dependencies": {
+    "aedes": "^0.46.0",
+    "chalk": "^4.1.1",
+    "commander": "7.2.0",
+    "node-opcua": "^2.44.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.21",
+    "@types/node": "15.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.3.2"
+  }
+}

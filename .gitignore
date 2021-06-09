@@ -1,0 +1,6 @@
+node_modules
+build
+lib
+.cache
+parcel-debug-*
+src/*/release
