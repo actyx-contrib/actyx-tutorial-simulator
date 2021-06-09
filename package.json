@@ -1,6 +1,6 @@
 {
   "name": "@actyx-contrib/actyx-tutorial-simulator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simulation tool for a couple of entry points",
   "main": "src/main.ts",
   "bin": {
