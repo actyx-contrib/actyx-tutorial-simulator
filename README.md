@@ -20,8 +20,9 @@ Component Temp:   /mockPLC/Temp   |  ns=1;s=temp   |  Float
 
 Compatible to the Actyx-Demo-Box [https://github.com/actyx-contrib/machine-demo-box]
 
+#### Start
+
 ```
-start:
 > actyx-tutorial-simu opcua-mock-plc --port 4334
 ```
 
@@ -44,9 +45,16 @@ Available keyboard commands are:
 
 Compatible to the Actyx-Academy-ax101 course Module 3
 
+#### Start
+
 ```
-start:
-> actyx-tutorial-simu ax101-3-scanner --port 1883
+> actyx-tutorial-simu ax101-3-scanner --port 1885
+```
+
+#### Test
+
+```
+npx mqtt sub -t 'scan' -h 'localhost' -p 1884
 ```
 
 ### ax101-3-machine
@@ -64,7 +72,17 @@ Available keyboard commands are:
 - start \<amount\> - starts the machine manually
 - stop - stops the machine manually
 
+#### Start
+
 ```
-start:
 > actyx-tutorial-simu ax101-3-machine --port 1884
+```
+
+#### Test
+
+```
+> npx mqtt sub -t 'material' -h 'localhost' -p 1885
+> npx mqtt sub -t 'error' -h 'localhost' -p 1885
+> npx mqtt pub -t 'commands' -h 'localhost' -p 1885 -m '{"command": "start", "partsToProduce": 2}'
+> npx mqtt pub -t 'commands' -h 'localhost' -p 1885 -m '{"command": "stop"}'
 ```

@@ -19,7 +19,7 @@ export const cli = (program: Command): Command => {
   // Template of a new module
   // the template is not packed into the public node module
   program
-    .command('Template')
+    .command('template')
     .description('example to present how to add a new module')
     .option('-p --port <port>', 'MQTT-server port')
     .action((param) => require('./index.js').default(param))
