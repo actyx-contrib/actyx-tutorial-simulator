@@ -1,6 +1,10 @@
 # Actyx Tutorial Simulations
 
-TODO
+## 📦 Installation
+
+```shell
+npm install -g @actyx-contrib/actyx-tutorial-simulator
+```
 
 ## Modules
 
@@ -23,6 +27,7 @@ Compatible to the Actyx-Demo-Box [https://github.com/actyx-contrib/machine-demo-
 #### Start
 
 ```
+> npx @actyx-contrib/actyx-tutorial-simulator opcua-mock-plc --port 4334
 > actyx-tutorial-simu opcua-mock-plc --port 4334
 ```
 
@@ -48,6 +53,7 @@ Compatible to the Actyx-Academy-ax101 course Module 3
 #### Start
 
 ```
+> npx @actyx-contrib/actyx-tutorial-simulator ax101-3-scanner --port 1885
 > actyx-tutorial-simu ax101-3-scanner --port 1885
 ```
 
@@ -75,6 +81,7 @@ Available keyboard commands are:
 #### Start
 
 ```
+> npx @actyx-contrib/actyx-tutorial-simulator ax101-3-machine --port 1884
 > actyx-tutorial-simu ax101-3-machine --port 1884
 ```
 
